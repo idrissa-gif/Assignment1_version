@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Etudiant_chef — Rendus (V0.1)</title>
+  <style>
+    :root{
+      --bg:#0f172a;        /* slate-900 */
+      --card:#111827;      /* gray-900  */
+      --muted:#94a3b8;     /* slate-400 */
+      --text:#e5e7eb;      /* gray-200  */
+      --brand:#f97316;     /* orange-500*/
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial;
+      color:var(--text); background:linear-gradient(180deg,#0b1220, #0a0f1e 20%, var(--bg));
+    }
+    header{
+      padding:28px 16px; border-bottom:1px solid #1f2937; position:sticky; top:0; backdrop-filter: blur(8px);
+      background:linear-gradient(180deg,rgba(10,15,30,.85), rgba(10,15,30,.65));
+      z-index:10;
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:20px 16px 64px;}
+    h1{margin:0 0 6px; font-size:clamp(22px,3.2vw,30px)}
+    .sub{color:var(--muted); margin:0 0 2px}
+    .grid{display:grid; gap:16px; grid-template-columns:repeat(12,1fr)}
+    .card{
+      grid-column: span 12; background:var(--card); border:1px solid #1f2937; border-radius:14px;
+      padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    @media(min-width:900px){
+      .col-7{grid-column:span 7}
+      .col-5{grid-column:span 5}
+    }
+    h2{margin:0 0 12px; font-size:20px}
+    p{color:var(--muted); margin:8px 0 0}
+    a.btn{
+      display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:600;
+      color:#111; background:var(--brand); padding:10px 14px; border-radius:10px; border:0;
+      box-shadow:0 6px 16px rgba(249,115,22,.35);
+    }
+    a.btn.secondary{background:#1f2937; color:var(--text); box-shadow:none; border:1px solid #263141}
+    .list{margin:8px 0 0; padding-left:18px; color:var(--muted)}
+    .pdf-shell{
+      border:1px solid #263141; border-radius:12px; overflow:hidden; background:#0b1220;
+    }
+    .pdf-toolbar{
+      display:flex; gap:10px; align-items:center; justify-content:space-between; padding:10px 12px; background:#0b1220; border-bottom:1px solid #263141;
+    }
+    .pdf-toolbar .title{font-weight:600; color:var(--text)}
+    iframe.pdf{
+      width:100%; height:80vh; border:0; background:#0b1220;
+    }
+    footer{margin-top:28px; color:#6b7280; text-align:center; font-size:13px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Etudiant_chef — Page des rendus (V0.1)</h1>
+      <p class="sub">I&amp;E Advanced — Équipe 1 : Fabio Alves, Anass Ouchtoubane, Ilyes Sais, Idrissa Dicko</p>
+    </div>
+  </header>
+
+  <main class="wrap grid">
+    <!-- Bloc : rappel des 5 éléments -->
+    <section class="card col-5">
+      <h2>📌 Les 5 éléments requis</h2>
+      <ol class="list">
+        <li>Présentation courte (5 lignes) de la startup &amp; de l’app</li>
+        <li><strong>Slides PDF</strong> — intégrés ci-contre + lien</li>
+        <li>Lien vers l’application (ici : dépôt GitHub)</li>
+        <li>Vidéo de présentation (YouTube ou fichier local)</li>
+        <li>Fichier <code>HelloWorld.java</code> téléchargeable</li>
+      </ol>
+      <p style="margin-top:14px">
+        <a class="btn" href="https://github.com/idrissa-gif/Etudiant_chef" target="_blank" rel="noopener">🔗 Code source (GitHub)</a>
+      </p>
+      <p style="margin-top:10px">
+        <a class="btn secondary" href="https://youtube.com/shorts/BTr6R-7zL3o?feature=share" target="_blank" rel="noopener">▶️ Voir la vidéo (YouTube)</a>
+      </p>
+      <p style="margin-top:10px">
+        <!-- Si vous avez un HelloWorld.java local dans le même dossier web, mettez le bon nom de fichier -->
+        <a class="btn secondary" href="./HelloWorld.java" download>⬇️ Télécharger HelloWorld.java</a>
+      </p>
+    </section>
+
+    <!-- Bloc : Slides intégrés (PDF) -->
+    <section class="card col-7">
+      <h2>🖼️ Slides (PDF) — affichage intégré</h2>
+
+      <!-- Barre du viewer -->
+      <div class="pdf-shell">
+        <div class="pdf-toolbar">
+          <div class="title">Slides — Recipes (1).pdf</div>
+          <div style="display:flex; gap:10px">
+            <!-- Ouvrir dans un nouvel onglet -->
+            <a class="btn secondary" href="/mnt/data/Recipes  (1).pdf" target="_blank" rel="noopener">Ouvrir le PDF</a>
+            <!-- Téléchargement (même fichier) -->
+            <a class="btn" href="/mnt/data/Recipes  (1).pdf" download>Télécharger le PDF</a>
+          </div>
+        </div>
+
+        <!-- Lecteur intégré -->
+        <iframe
+          class="pdf"
+          src="/mnt/data/Recipes  (1).pdf#view=FitH&toolbar=1&navpanes=1&scrollbar=1"
+          title="Slides Etudiant_chef">
+        </iframe>
+      </div>
+
+      <p style="margin-top:10px">
+        Si le lecteur intégré ne s’affiche pas dans votre navigateur, utilisez <em>Ouvrir le PDF</em> (ci-dessus).
+      </p>
+    </section>
+
+    <!-- Bloc : Présentation 5 lignes (exemple, remplacez par votre texte) -->
+    <section class="card col-12">
+      <h2>ℹ️ Présentation (5 lignes)</h2>
+      <p>
+        <strong>Etudiant_chef</strong> simplifie la préparation des repas des étudiants en générant chaque semaine un
+        menu personnalisé, une liste de courses optimisée et des recettes rapides (≤ 30 min).
+        L’app prend en compte le budget, le temps, les allergies et le régime (classique, végé, vegan…).
+        L’objectif : gagner du temps, manger équilibré et réduire le coût/portion.
+        La V0.1 livre : génération d’un menu hebdo, filtres de base, estimation coût/portion et export.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    Rendus V0.1 — I&amp;E Advanced — Université Paris-Saclay
+  </footer>
+</body>
+</html>
