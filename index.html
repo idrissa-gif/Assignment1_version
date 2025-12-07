@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Etudiant_chef — Assignment 1 (I&E)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{ --bg:#0b132b; --card:#1c2541; --muted:#3a506b; --acc:#5bc0be; --text:#e6edf3; }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    a{color:var(--acc);text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:900px;margin:40px auto;padding:0 20px}
+    header{margin-bottom:18px}
+    h1{margin:.2rem 0;font-size:1.6rem}
+    .muted{color:#b9c7d6;opacity:.9}
+    .card{background:var(--card);border:1px solid var(--muted);border-radius:14px;padding:18px;margin:12px 0}
+    ul.items{list-style:none;padding:0;margin:0}
+    ul.items li{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--muted);border-radius:12px;margin:10px 0;background:#111a2c}
+    .small{font-size:.95rem}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn{background:var(--acc);border:none;border-radius:8px;color:#06202b;font-weight:600;padding:.5rem .8rem;cursor:pointer}
+    /* PDF */
+    .pdf-frame{width:100%;height:75vh;border:1px solid #26324a;border-radius:12px;background:#0a1122}
+    /* Vidéo */
+    .ratio{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;border:1px solid #26324a;background:#000}
+    .ratio iframe, .ratio video{position:absolute;inset:0;width:100%;height:100%;border:0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Etudiant_chef — Assignment 1</h1>
+      <div class="muted small">
+        Module : Innovation &amp; Entrepreneurship Advanced (M2/IE2) — 2025/2026<br/>
+        Équipe : Fabio · Anass · Ilyes · Idrissa
+      </div>
+    </header>
+
+    <!-- 1) Présentation -->
+    <section class="card">
+      <h2>1) Présentation (application)</h2>
+      <p class="small">
+        <strong>Etudiant_chef</strong> génère un <strong>menu hebdomadaire</strong> personnalisé (budget, temps, préférences, allergies),
+        avec recettes ≤ 30 min, coût/portion, liste de courses et remplacements 1-clic.
+      </p>
+    </section>
+
+    <!-- 2–5) Livrables -->
+    <section class="card">
+      <h2>Livrables </h2>
+      <ul class="items small">
+        <!-- SLIDES — PDF local fixe -->
+        <li style="flex-direction:column;align-items:flex-start">
+          <div class="row" style="width:100%;justify-content:space-between;align-items:center">
+            <strong>2) Slides (23 titres) — PDF</strong>
+            <div class="row">
+              <a class="btn" href="./" download>Télécharger le PDF</a>
+              <a class="btn" href="./Recipes.pdf" target="_blank" rel="noopener">Ouvrir dans un onglet</a>
+            </div>
+          </div>
+          <!-- Affichage intégré -->
+          <object class="pdf-frame" data="./recipes.pdf#view=FitH&toolbar=1" type="application/pdf">
+            <p>Votre navigateur ne peut pas intégrer le PDF. <a href="./Recipes.pdf" target="_blank" rel="noopener">Ouvrir le PDF</a>.</p>
+          </object>
+        </li>
+
+        <li>
+          <span>3) <strong>Lien vers l’application</strong></span>
+          <a href="https://github.com/idrissa-gif/Etudiant_chef" target="_blank" rel="noopener">https://github.com/idrissa-gif/Etudiant_chef</a>
+        </li>
+
+        <!-- 4) Vidéo : local MP4 si présent, sinon YouTube nocookie -->
+        <li style="flex-direction:column;align-items:flex-start">
+          <strong>4) Vidéo</strong>
+          <div class="ratio" style="margin-top:8px">
+            <video id="localPlayer" controls playsinline preload="metadata" style="display:none">
+              <source src="Etudiant_chef_demo.mp4" type="video/mp4">
+            </video>
+            <iframe id="ytEmbed"
+              src="https://www.youtube-nocookie.com/embed/BTr6R-7zL3o?rel=0&modestbranding=1&playsinline=1"
+              title="Présentation Etudiant_chef"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </li>
+
+        <li style="flex-direction:column;align-items:flex-start">
+          <span>5) <strong>Fichier Java</strong> imprimant “Hello world”</span>
+          <a id="downloadJava" href="#" class="btn" download="HelloWorld.java">Télécharger HelloWorld.java</a>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    // Si un MP4 local existe, on masque l'iframe YouTube.
+    const localPlayer = document.getElementById('localPlayer');
+    const ytEmbed = document.getElementById('ytEmbed');
+    const testVideo = document.createElement('video');
+    testVideo.src = 'Etudiant_chef_demo.mp4';
+    testVideo.preload = 'metadata';
+    let switched = false;
+    const showLocal = () => {
+      if (switched) return;
+      switched = true;
+      localPlayer.style.display = 'block';
+      ytEmbed.style.display = 'none';
+      localPlayer.src = 'Etudiant_chef_demo.mp4';
+      localPlayer.play().catch(()=>{});
+    };
+    testVideo.addEventListener('loadedmetadata', showLocal);
+    testVideo.addEventListener('error', () => {});
+    testVideo.load();
+
+    // Génération du HelloWorld.java à la volée
+    const javaContent = `// Innovation & Entrepreneurship Advanced — Assignment 1
+// Minimal Java code — prints "Hello world"
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello world");
+    }
+}
+`;
+    const dlJava = document.getElementById('downloadJava');
+    dlJava.addEventListener('click', ()=>{
+      const blob = new Blob([javaContent], { type: 'text/plain;charset=utf-8' });
+      const url  = URL.createObjectURL(blob);
+      dlJava.href = url;
+      dlJava.setAttribute('download','HelloWorld.java');
+    });
+  </script>
+</body>
+</html>
